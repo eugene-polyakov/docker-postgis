@@ -35,6 +35,9 @@ fi
 if [ -z "${TOPOLOGY}" ]; then
 	TOPOLOGY=true
 fi
+if [ -z "${LTREE}" ]; then
+	LTREE=true
+fi
 # Replication settings
 if [ -z "${REPLICATE_PORT}" ]; then
 	REPLICATE_PORT=5432

@@ -74,6 +74,11 @@ else
 		echo "Enabling topology in the template"
 		su - postgres -c "psql template_postgis -c 'CREATE EXTENSION postgis_topology;'"
 	fi
+	if [[ ${LTREE} == "true" ]]
+	then
+		echo "Enabling ltree in the template"
+		su - postgres -c "psql template_postgis -c 'CREATE EXTENSION ltree;'"
+	fi
 
 	# Needed when importing old dumps using e.g ndims for constraints
 	# Ignore error if it doesn't exists

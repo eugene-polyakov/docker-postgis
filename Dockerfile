@@ -1,6 +1,6 @@
 #--------- Generic stuff all our Dockerfiles should start with so we get caching ------------
 FROM debian:stable
-MAINTAINER Tim Sutton<tim@kartoza.com>
+MAINTAINER Eugene Polyakov<rogerrabbitpro@gmail.com>
 
 RUN  export DEBIAN_FRONTEND=noninteractive
 ENV  DEBIAN_FRONTEND noninteractive
@@ -16,6 +16,18 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
 # on docker hub e.g.
 # The following packages have unmet dependencies:
 RUN apt-get update; apt-get install -y postgresql-client-10 postgresql-common postgresql-10 postgresql-10-postgis-2.4 postgresql-10-pgrouting netcat
+
+RUN git clone https://github.com/uber/h3.git
+RUN cd h3
+RUN cmake -DCMAKE_C_FLAGS=-fPIC .
+RUN make
+RUN sudo make install
+
+RUN cd ..
+RUN git clone https://github.com/dlr-eoc/pgh3.git
+RUN make
+RUN sudo make install
+
 
 # Open port 5432 so linked containers can see them
 EXPOSE 5432

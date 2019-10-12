@@ -79,6 +79,11 @@ else
 	    	echo "Enabling ltree in the template"
 	    	su - postgres -c "psql template_postgis -c 'CREATE EXTENSION ltree;'"
 	    fi
+		if [[ ${H3} == "true"]]
+		then 
+			echo "Enabling H3 in the template"
+			su - postgres -c "psql template_postgis -c 'CREATE EXTENSION pgh3;'"
+		fi
         # Needed when importing old dumps using e.g ndims for constraints
         # Ignore error if it doesn't exists
         echo "Loading legacy sql"

@@ -38,6 +38,9 @@ fi
 if [ -z "${LTREE}" ]; then
 	LTREE=true
 fi
+if [ -z "${H3}" ]; then
+	H3=true
+fi
 # Replication settings
 if [ -z "${REPLICATE_PORT}" ]; then
 	REPLICATE_PORT=5432

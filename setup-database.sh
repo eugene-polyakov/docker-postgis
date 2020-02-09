@@ -79,7 +79,7 @@ else
 	    	echo "Enabling ltree in the template"
 	    	su - postgres -c "psql template_postgis -c 'CREATE EXTENSION ltree;'"
 	    fi
-		if [[ ${H3} == "true"]]
+		if [[ ${H3} == "true" ]]
 		then 
 			echo "Enabling H3 in the template"
 			su - postgres -c "psql template_postgis -c 'CREATE EXTENSION pgh3;'"
@@ -100,7 +100,7 @@ source /setup-user.sh
 
 RESULT=`su - postgres -c "psql -l | grep -w ${POSTGRES_DBNAME} | wc -l"`
 echo "Check default db exists (${POSTGRES_DBNAME}) ---> ${RESULT}"
-if [[ ! ${RESULT} == '1' ]]; then
+if [[ ${RESULT} == '0' ]]; then
         echo "Create default db ${POSTGRES_DBNAME}"
         su - postgres -c "createdb -O ${POSTGRES_USER} -T template_postgis ${POSTGRES_DBNAME}"
 else

@@ -1,5 +1,5 @@
 #--------- Generic stuff all our Dockerfiles should start with so we get caching ------------
-FROM debian:stable
+FROM debian:9.6
 MAINTAINER Eugene Polyakov<rogerrabbitpro@gmail.com>
 
 RUN  export DEBIAN_FRONTEND=noninteractive
@@ -15,18 +15,12 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
 # We add postgis as well to prevent build errors (that we dont see on local builds)
 # on docker hub e.g.
 # The following packages have unmet dependencies:
-RUN apt-get update; apt-get install -y postgresql-client-10 postgresql-common postgresql-10 postgresql-10-postgis-2.4 postgresql-10-pgrouting netcat
+RUN apt-get update; apt-get install -y postgresql-client-10 postgresql-common postgresql-10 postgresql-10-postgis-2.4 postgresql-10-pgrouting netcat 
+RUN apt-get install -y postgresql-server-dev-10 git cmake
 
-RUN git clone https://github.com/uber/h3.git
-RUN cd h3
-RUN cmake -DCMAKE_C_FLAGS=-fPIC .
-RUN make
-RUN sudo make install
+RUN git clone https://github.com/uber/h3.git; cd h3; cmake -DCMAKE_C_FLAGS=-fPIC .; make; make install
 
-RUN cd ..
-RUN git clone https://github.com/dlr-eoc/pgh3.git
-RUN make
-RUN sudo make install
+RUN cd ..; git clone https://github.com/dlr-eoc/pgh3.git; cd pgh3; make; make install
 
 
 # Open port 5432 so linked containers can see them

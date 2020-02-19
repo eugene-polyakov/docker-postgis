@@ -12,4 +12,6 @@ wal_level = hot_standby
 max_wal_senders = $PG_MAX_WAL_SENDERS
 wal_keep_segments = $PG_WAL_KEEP_SEGMENTS
 hot_standby = on
+shared_buffers = 8GB
+effective_cache_size = 12GB
 EOF
